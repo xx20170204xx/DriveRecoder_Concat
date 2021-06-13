@@ -8,6 +8,9 @@ for file in files:
     fin = open(file, 'r')
     while True:
         data = fin.readline()
+        # EofCheck
+        if not data:
+            break
         fout.write(data)
         fout.write("\n")
         if data.startswith('<EOF/>') == True:
