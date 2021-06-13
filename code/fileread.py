@@ -40,6 +40,9 @@ def main():
 
     while True:
         data = f.readline()
+        # EofCheck
+        if not data:
+            break
         if data.startswith('<EOF/>') == True:
             break;
         #print (data)
