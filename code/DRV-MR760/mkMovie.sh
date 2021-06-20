@@ -34,7 +34,7 @@ while read LINE
 do
     NMEA_FILE=$(basename $LINE)
     ID=${NMEA_FILE##FILE}
-    ID=${ID%%-N.NMEA}
+    ID=${ID%%-M.NMEA}
     echo $ID$'\t'Video >>vlist_tmp.txt
 done <<< $(find $(pwd)/Video/NMEA -name "*.NMEA")
 
@@ -42,7 +42,7 @@ while read LINE
 do
     NMEA_FILE=$(basename $LINE)
     ID=${NMEA_FILE##EMER}
-    ID=${ID%%-N.NMEA}
+    ID=${ID%%-M.NMEA}
     echo $ID$'\t'Event >>vlist_tmp.txt
 done <<< $(find $(pwd)/Event/NMEA -name "*.NMEA")
 
@@ -52,7 +52,7 @@ while read -u 3 ID TYPE
 do
     echo "${ID},${TYPE}"
     if [ "${TYPE}" = "Video" ]; then
-        MAP_FILE="FILE${ID}-N.NMEA_map.png"
+        MAP_FILE="FILE${ID}-M.NMEA_map.png"
         VIDEO_FILE="FILE${ID}-M.MP4"
 	    if [ -e Video/MAP/${MAP_FILE} ]; then
 	        ffmpeg -i Video/M/${VIDEO_FILE} -i Video/MAP/${MAP_FILE} -filter_complex "[1:v]format=yuva420p,lut=a='val*0.7',[0:v] overlay=0:H-h" Movie/${VIDEO_FILE}
@@ -61,7 +61,7 @@ do
 	        echo "file $(pwd)/Video/M/${VIDEO_FILE}" >>vlist_ffmpeg.txt
 	    fi
     elif [ "${TYPE}" = "Event" ]; then
-        MAP_FILE="EMER${ID}-N.NMEA_map.png"
+        MAP_FILE="EMER${ID}-M.NMEA_map.png"
         VIDEO_FILE="EMER${ID}-M.MP4"
 	    if [ -e Event/MAP/${MAP_FILE} ]; then
 	        ffmpeg -i Event/M/${VIDEO_FILE} -i Event/MAP/${MAP_FILE} -filter_complex "[1:v]format=yuva420p,lut=a='val*0.7',[0:v] overlay=0:H-h" Movie/${VIDEO_FILE}
