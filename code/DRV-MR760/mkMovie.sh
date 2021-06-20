@@ -75,7 +75,24 @@ do
 
 done 3<vlist.txt
 
+while read -u 3 ID TYPE
+do
+    echo "${ID},${TYPE}"
+    if [ "${TYPE}" = "Video" ]; then
+        VIDEO_FILE="FILE${ID}-2.MP4"
+        echo "file $(pwd)/Video/2/${VIDEO_FILE}" >>vlist_ffmpeg2.txt
+    elif [ "${TYPE}" = "Event" ]; then
+        VIDEO_FILE="EMER${ID}-2.MP4"
+        echo "file $(pwd)/Event/2/${VIDEO_FILE}" >>vlist_ffmpeg2.txt
+    else
+        echo ""
+    fi
+
+done 3<vlist.txt
+
+
 ffmpeg -f concat -safe 0 -i vlist_ffmpeg.txt movie.mp4
+ffmpeg -f concat -safe 0 -i vlist_ffmpeg2.txt movie2.mp4
 
 # ffmpeg -i M/FILE210403-015854-000105-M.MP4 -i ./NMEA/FILE210403-015854-000105-N.NMEAmap.png -filter_complex "[1:v]format=yuva420p,lut=a='val*0.7',[0:v] overlay=0:H-h" M/FILE210403-015854-000105-M.MP4_map.mp4
 
