@@ -72,10 +72,15 @@ def main():
     # print(point)
     # print( "map = [%2.8f, %2.8f]" % (point[0][0],point[0][1]))
     for ii in range(len(point) - 1):
-        hh=np.clip(speed[ii][2] / max_speed, 0.0 , 1.0)
+        hh = speed[ii][2] / max_speed
+        if( hh > 1.0 ):
+            sv = (hh - 1.0)
+        hh=np.clip(hh, 0.0 , 1.0)
+        sv=np.clip(sv, 0.0 , 1.0)
+        sv = 1.0 - sv
         hh2 = (2.0 / 3.0) * (1 - hh)
         print( speed[ii], hh2 )
-        color_hsv = (hh2, 1, 1)
+        color_hsv = (hh2, sv, sv)
         color_rgb = mcolors.hsv_to_rgb(color_hsv)
         map.add_line(Line(((point[ii][1],point[ii][0]), (point[ii+1][1],point[ii+1][0])), mcolors.to_hex(color_rgb), 3))
     p2 = np.mean(point, axis=0)
