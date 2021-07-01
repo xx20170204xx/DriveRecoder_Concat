@@ -73,7 +73,7 @@ def main():
     # print( "map = [%2.8f, %2.8f]" % (point[0][0],point[0][1]))
     for ii in range(len(point) - 1):
         hh = speed[ii][2] / max_speed
-        sv = 1.0
+        sv = 0.0
         if( hh > 1.0 ):
             sv = (hh - 1.0)
         hh=np.clip(hh, 0.0 , 1.0)
