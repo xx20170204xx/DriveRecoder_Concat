@@ -55,19 +55,21 @@ do
         MAP_FILE="FILE${ID}-M.NMEA_map.png"
         VIDEO_FILE="FILE${ID}-M.MP4"
 	    if [ -e Video/MAP/${MAP_FILE} ]; then
-	        ffmpeg -i Video/M/${VIDEO_FILE} -i Video/MAP/${MAP_FILE} -filter_complex "[1:v]format=yuva420p,lut=a='val*0.7',[0:v] overlay=0:H-h" Movie/${VIDEO_FILE}
+	        ffmpeg -i Video/M/${VIDEO_FILE} -i Video/MAP/${MAP_FILE} -acodec copy -filter_complex "[1:v]format=yuva420p,lut=a='val*0.7',[0:v] overlay=0:H-h" Movie/${VIDEO_FILE}
 	        echo "file $(pwd)/Movie/${VIDEO_FILE}" >>vlist_ffmpeg.txt
 	    else
-	        echo "file $(pwd)/Video/M/${VIDEO_FILE}" >>vlist_ffmpeg.txt
+	        ffmpeg -i Video/M/${VIDEO_FILE} -acodec copy Movie/${VIDEO_FILE}
+	        echo "file $(pwd)/Movie/${VIDEO_FILE}" >>vlist_ffmpeg.txt
 	    fi
     elif [ "${TYPE}" = "Event" ]; then
         MAP_FILE="EMER${ID}-M.NMEA_map.png"
         VIDEO_FILE="EMER${ID}-M.MP4"
 	    if [ -e Event/MAP/${MAP_FILE} ]; then
-	        ffmpeg -i Event/M/${VIDEO_FILE} -i Event/MAP/${MAP_FILE} -filter_complex "[1:v]format=yuva420p,lut=a='val*0.7',[0:v] overlay=0:H-h" Movie/${VIDEO_FILE}
+	        ffmpeg -i Event/M/${VIDEO_FILE} -i Event/MAP/${MAP_FILE} -acodec copy -filter_complex "[1:v]format=yuva420p,lut=a='val*0.7',[0:v] overlay=0:H-h" Movie/${VIDEO_FILE}
 	        echo "file $(pwd)/Movie/${VIDEO_FILE}" >>vlist_ffmpeg.txt
 	    else
-	        echo "file $(pwd)/Event/M/${VIDEO_FILE}" >>vlist_ffmpeg.txt
+	        ffmpeg -i Event/M/${VIDEO_FILE} -acodec copy Movie/${VIDEO_FILE}
+	        echo "file $(pwd)/Movie/${VIDEO_FILE}" >>vlist_ffmpeg.txt
 	    fi
     else
         echo ""
