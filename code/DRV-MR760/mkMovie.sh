@@ -23,9 +23,9 @@ fi
 
 
 
-find $(pwd)/Video/NMEA -name "*.NMEA" -exec python ./fileread.py {} \;
+find $(pwd)/Video/NMEA -name "*.NMEA" -exec python ./mkmappic.py {} \;
 mv -vf $(pwd)/Video/NMEA/*.png $(pwd)/Video/MAP/
-find $(pwd)/Event/NMEA -name "*.NMEA" -exec python ./fileread.py {} \;
+find $(pwd)/Event/NMEA -name "*.NMEA" -exec python ./mkmappic.py {} \;
 mv -vf $(pwd)/Event/NMEA/*.png $(pwd)/Event/MAP/
 
 rm -f vlist*.txt
